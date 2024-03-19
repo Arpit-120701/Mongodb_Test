@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .loginbox{
+            height:500px;
+            width:500px;
+            margin-top: 70px;
+            border-radius: 3%;
+            box-shadow: 4px 4px 4px rgba(0.5,0.5,0,0.5);
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body>
+    <center>
+        <h1>Login with us...!!!</h1>
+        <div class="loginbox">
+        <form id="form">
+            <table cellspacing="50px">
+                <tr>
+                   <th><b>Login ID</b></th><td><input type="text" placeholder="Enter Id..." name="id" id="id"></td>
+                </tr>
+                <tr>
+                    <th><b>Full Name</b></th><td><input type="text" name="fullname" id="fullname"></td>
+                 </tr>
+                 <tr>
+                    <th><b>Mobile No.</b></th><td><input type="number" placeholder="+91 94XXXXXXXX" name="phone" id="phone"></td>
+                 </tr>
+                 <tr>
+                    <th style="color:green"><b>Review Information</b></th><td><button value="REGISTER">Submit</button></td>
+                 </tr>
+            </table>
+        </form>
+    </div>
+    </center>
+
+    <script>
+        let form=document.getElementById('form')
+        let userDetails={}
+
+        form.addEventListener('input', (event)=>{
+            let name=event.target.name
+            let value=event.target.value
+            userDetails[name]=value
+        })
+
+        form.addEventListener('submit', (event)=>{
+            event.preventDefault()
+            fetch("/newStudent",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(userDetails)
+            }).then(res=>res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
+
+        })
+    </script>
+   
+    
+</body>
+</html>
